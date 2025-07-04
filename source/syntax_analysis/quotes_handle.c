@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 22:40:43 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/04 14:34:05 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:55:37 by mansargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,6 @@ int	handle_quots(char **envp, t_token *token)
 	str = open_quotes(envp, token->token_data, &open_flag);
 	if (!str)
 		return (-1);
-	printf("%s\n", str);
+	// printf("%s\n", str);
 	return (0);
 }

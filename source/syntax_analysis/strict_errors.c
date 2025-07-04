@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strict_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 02:55:20 by mansargs          #+#    #+#             */
-/*   Updated: 2025/07/04 14:30:57 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:03:41 by mansargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ bool	invalid_operator(const t_token *token, const int strict_flag)
 			&& token->next_token->token_type == TOKEN_OPERATOR)
 			return (printf("%s `%s'\n", SYN_ERR, token->next_token->token_data),
 				true);
-		if (token->next_token && token->next_token->token_type == TOKEN_OPERATOR)
-			return (printf("%s `%s'\n", SYN_ERR,
-					token->next_token->token_data), true);
 	}
 	else
 	{
@@ -80,7 +77,7 @@ bool	strict_syntax_errors(t_shell *shell)
 				return (true);
 		if (temp->token_type == TOKEN_WORD)
 		{// es masy
-		
+
 			if (handle_quots(shell->envp, temp) == -1)
 				return (true);
 		}
