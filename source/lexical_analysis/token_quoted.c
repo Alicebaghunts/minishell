@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_quoted.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 01:28:36 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/04 13:56:17 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:13:23 by mansargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,10 @@ t_shell	*init_shell(char **envp)
 {
 	t_shell	*shell;
 
-	shell = (t_shell *)malloc(sizeof(t_shell));
+	shell = (t_shell *)ft_calloc(1, sizeof(t_shell));
 	if (shell == NULL)
 		return (NULL);
 	shell->envp = envp;
-	shell->tokens = NULL;
 	return (shell);
 }
 

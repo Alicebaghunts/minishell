@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:38:09 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/04 14:24:21 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:11:47 by mansargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	syntax_and_heredoc(t_shell *shell)
 	int		opened_parenthesis;
 
 	if (strict_syntax_errors(shell))
-		return (free_tokens(shell->tokens), false);
+		return (false);
 	temp = shell->tokens;
 	opened_parenthesis = 0;
 	while (temp)
@@ -31,7 +31,7 @@ bool	syntax_and_heredoc(t_shell *shell)
 				return (false);
 		}
 		else if (secondary_syntax_errors(temp, &opened_parenthesis))
-			return (free_tokens(shell->tokens), false);
+			return (false);
 		temp = temp->next_token;
 	}
 	return (true);
@@ -42,10 +42,10 @@ bool	valid_line(t_shell *shell, char **line)
 	t_token	*last;
 
 	if (!syntax_and_heredoc(shell))
-		return (false);
+		return (free_tokens(shell->tokens), false);
 	last = last_token(shell->tokens);
 	if (last->token_type == TOKEN_OPERATOR)
 		if (!wait_for_input(shell, line))
-			return (false);
+			return (free_tokens(shell->tokens), false);
 	return (true);
 }

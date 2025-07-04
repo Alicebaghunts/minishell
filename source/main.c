@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:11:25 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/04 13:13:54 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:10:24 by mansargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ int	main(int argc, char *argv[], char **envp)
 {
 	char	*line;
 	t_shell	*shell;
+	bool	status;
 
 	(void)argv;
+	line = NULL;
 	if (argc > 1)
 	{
 		printf("This program must be run without any arguments.\n");
@@ -64,15 +66,26 @@ int	main(int argc, char *argv[], char **envp)
 	shell = init_shell(envp);
 	while (1)
 	{
+		if (line)
+			free(line);
 		line = readline("minishell$ ");
 		if (!line)
 			break ;
 		shell->tokens = tokenize(line);
+		if (!shell->tokens)
+		{
+			if (errno == ENOMEM)
+				return (perror(""), errno);
+			else
+				continue ;
+		}
+		printf("%s\n", line);
+		status = valid_line(shell, &line);
 		add_history(line);
-		if (!valid_line(shell, &line))
+		if (!status)
 			continue ;
 		// print_tokens_with_neighbors(tokens);
 	}
 	printf("exit\n");
-	return (0);
+	return (EXIT_SUCCESS);
 }
