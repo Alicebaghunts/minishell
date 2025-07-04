@@ -6,7 +6,7 @@
 /*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:11:25 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/02 21:46:42 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:13:54 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,28 @@ bool	only_spaces(const char *str)
 	return (true);
 }
 
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[], char **envp)
 {
 	char	*line;
-	t_token	*tokens;
+	t_shell	*shell;
 
 	(void)argv;
-	tokens = NULL;
 	if (argc > 1)
 	{
 		printf("This program must be run without any arguments.\n");
 		return (EXIT_FAILURE);
 	}
+	shell = init_shell(envp);
 	while (1)
 	{
 		line = readline("minishell$ ");
 		if (!line)
 			break ;
-		tokens = tokenize(line);
+		shell->tokens = tokenize(line);
 		add_history(line);
-		if (!syntax_and_heredoc(tokens, &line))
+		if (!valid_line(shell, &line))
 			continue ;
+		// print_tokens_with_neighbors(tokens);
 	}
 	printf("exit\n");
 	return (0);

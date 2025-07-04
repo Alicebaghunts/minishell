@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_quoted.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 01:28:36 by alisharu          #+#    #+#             */
-/*   Updated: 2025/06/21 18:34:35 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:56:17 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	add_quoted_token(char *line, int start, t_token **head, int j)
 	return (0);
 }
 
-int	handle_quoted_token(char *line, int i, t_token **head)
+int	handle_quots_token(char *line, int i, t_token **head)
 {
 	int		start;
 	int		j;
@@ -54,6 +54,18 @@ int	handle_quoted_token(char *line, int i, t_token **head)
 	if (add_quoted_token(line, start, head, j) < 0)
 		return (-1);
 	return (j - i);
+}
+
+t_shell	*init_shell(char **envp)
+{
+	t_shell	*shell;
+
+	shell = (t_shell *)malloc(sizeof(t_shell));
+	if (shell == NULL)
+		return (NULL);
+	shell->envp = envp;
+	shell->tokens = NULL;
+	return (shell);
 }
 
 void	free_tokens(t_token *head)

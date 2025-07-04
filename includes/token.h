@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:11:21 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/03 02:28:25 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:56:17 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ typedef enum e_paren_type
 	PAREN_CLOSE
 }	t_paren_type;
 
+typedef struct s_shell
+{
+	char			**envp;
+	struct s_token	*tokens;
+}	t_shell;
+
 //main struct
 typedef struct s_token
 {
@@ -73,7 +79,7 @@ typedef struct s_token
 
 //prototypes
 bool	only_spaces(const char *str);
-
+t_shell	*init_shell(char **envp);
 t_token			*tokenize(char *line);
 t_token			*create_token(const char *t_data, t_token_type t_type);
 t_token_type	get_token_type(const char *token, int len);
@@ -85,9 +91,9 @@ bool			is_special_char(char tok);
 bool			is_special_operator(char tok);
 bool			wait_for_input_if_need(char **line);
 void			free_tokens(t_token *head);
-void			add_token(t_token **head, t_token *new_token);
+t_token			*add_token(t_token **head, t_token *new_token);
 int				extract_quoted_string(char *line, int i, char *str);
-int				handle_quoted_token(char *line, int i, t_token **head);
+int				handle_quots_token(char *line, int i, t_token **head);
 int				skip_variable(const char *line, int i);
 
 #endif

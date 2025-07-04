@@ -3,31 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 02:47:43 by mansargs          #+#    #+#             */
-/*   Updated: 2025/06/28 15:08:39 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/03 13:16:54 by mansargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "syntax.h"
 
-static char	*get_file_name(unsigned int *number)
+static	int get_random_number()
+{
+	int	fd;
+	int	number;
+	int	result;
+
+	fd = open("/dev/urandom", O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	result = read(fd, &number, sizeof number);
+	if (result == -1)
+		return (-1);
+	return (number);
+}
+
+static char	*get_file_name()
 {
 	char	*num_by_string;
 	char	*file_name;
+	int		number;
 
 	while (1)
 	{
-		num_by_string = ft_itoa(*number);
+		number = get_random_number();
+		num_by_string = ft_itoa(number);
 		if (!num_by_string)
 			return (NULL);
 		file_name = ft_strjoin("heredoc_", num_by_string);
 		free(num_by_string);
-		if (access(file_name, F_OK))
+		if (access(file_name, F_OK) == -1)
 			break ;
 		free(file_name);
-		++*number;
 	}
 	return (file_name);
 }
@@ -57,7 +73,7 @@ static void	read_from_stdin(const int fd, const char *delim)
 	}
 }
 
-char	*open_heredoc(const t_token *token, unsigned int *index)
+char	*open_heredoc(const t_token *token)
 {
 	int		fd;
 	char	*name;
@@ -66,7 +82,7 @@ char	*open_heredoc(const t_token *token, unsigned int *index)
 		return (token->file_name);
 	if (!token->next_token)
 		return (printf("%s `newline'\n", SYN_ERR), NULL);
-	name = get_file_name(index);
+	name = get_file_name();
 	if (!name)
 		return (NULL);
 	fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 0644);

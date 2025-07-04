@@ -3,32 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 20:35:41 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/03 02:34:47 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:56:17 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 
-void	add_token(t_token **head, t_token *new_token)
+t_token	*last_token(t_token *head)
 {
-	t_token	*tmp;
+	t_token	*last;
 
-	if (!head || !new_token)
-		return ;
+	if (!head)
+		return (NULL);
+	last = head;
+	while (last->next_token)
+		last = last->next_token;
+	return (last);
+}
+
+t_token	*add_token(t_token **head, t_token *new_token)
+{
+	t_token	*last;
+
+	if (!new_token)
+		return (last_token(*head));
 	if (!*head)
 	{
 		*head = new_token;
 		new_token->prev_token = NULL;
-		return ;
+		return (new_token);
 	}
-	tmp = *head;
-	while (tmp->next_token)
-		tmp = tmp->next_token;
-	tmp->next_token = new_token;
-	new_token->prev_token = tmp;
+	last = last_token(*head);
+	last->next_token = new_token;
+	new_token->prev_token = last;
+	return (last_token(last));
 }
 
 static int	get_word_len_with_quotes(const char *line)
@@ -73,7 +84,7 @@ static int	handle_operator_token(const char *line, int i, t_token **head)
 		|| (line[i] == '<' && line[i + 1] == '<')
 		|| (line[i] == '>' && line[i + 1] == '>'))
 		len = 2;
-	type = _type(&line[i], len);
+	type = get_token_type(&line[i], len);
 	substr = ft_substr(&line[i], 0, len);
 	if (!substr)
 		return (-1);
@@ -123,7 +134,7 @@ t_token	*tokenize(char *line)
 		else if (is_special_char(line[i]))
 			len = handle_operator_token(line, i, &head);
 		else if (line[i] == '\'' || line[i] == '"')
-			len = handle_quoted_token(line, i, &head);
+			len = handle_quots_token(line, i, &head);
 		else
 			len = handle_word_token(line, i, &head);
 		if (len < 0)
