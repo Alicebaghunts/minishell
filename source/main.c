@@ -6,7 +6,7 @@
 /*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:11:25 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/04 16:10:24 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:17:43 by mansargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	main(int argc, char *argv[], char **envp)
 			else
 				continue ;
 		}
-		printf("%s\n", line);
 		status = valid_line(shell, &line);
 		add_history(line);
 		if (!status)

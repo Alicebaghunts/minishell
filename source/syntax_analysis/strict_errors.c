@@ -6,18 +6,11 @@
 /*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 02:55:20 by mansargs          #+#    #+#             */
-/*   Updated: 2025/07/04 15:03:41 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:45:54 by mansargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "syntax.h"
-
-bool	invalid_word(const t_token *token)// es em avelacrel
-{
-	if (token->next_token && token->next_token->token_paren_type == PAREN_OPEN)
-		return (printf("%s `('\n", SYN_ERR), true);
-	return (false);
-}
 
 bool	invalid_redirect(const t_token *token, const int strict_flag)
 {
