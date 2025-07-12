@@ -6,7 +6,7 @@
 /*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 14:37:31 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/11 20:21:38 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/12 15:44:41 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	env_set(t_env *env, char *key, char *value, int is_equal)
 		if (ft_strcmp(current->key, key) == 0)
 	{
 		compair_key(current, key, value, is_equal);
-		return ; // ✅ Այստեղ պետք է կանգնել
+		return ;
 	}
 		current = current->next;
 	}
