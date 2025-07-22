@@ -6,7 +6,7 @@
 /*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 14:22:46 by mansargs          #+#    #+#             */
-/*   Updated: 2025/07/19 11:46:10 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:36:18 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int				export_builtin(char **args, t_env *env);
 void			handle_builtin_commands(t_shell *shell, t_env *env);
 void			unset_builtin(char **arg, t_env *env);
 void			env_builtin(char **args, t_env *env);
-void			pwd_builtin(t_shell *shell);
+void			pwd_builtin(t_shell *shell, t_env *env);
 void			cd_builtin(char **args, t_env *env);
 void			echo_builtin(char **args, t_env *env);
 void			exit_builtin(t_shell *shell, char **args);

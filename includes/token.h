@@ -6,7 +6,7 @@
 /*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:11:21 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/19 11:37:12 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:19:17 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "../library/libft/libft.h"
 # include "../library/gnl/get_next_line.h"
 
+# define PATH_MAX 4096
 # define SYN_ERR "minishell: syntax error near unexpected token"
 
 typedef enum e_token_type
@@ -70,6 +71,7 @@ typedef struct s_token
 
 typedef struct s_shell
 {
+	char		*pwd;
 	int			exit_code;
 	char		**envp;
 	t_token		*tokens;
