@@ -3,58 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 02:47:43 by mansargs          #+#    #+#             */
-/*   Updated: 2025/07/27 02:25:48 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:59:47 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "syntax.h"
 
-static int	get_random_number(void)
-{
-	int				fd;
-	unsigned int	number;
-	int				result;
-
-	fd = open("/dev/urandom", O_RDONLY);
-	if (fd == -1)
-		return (-1);
-	result = read(fd, &number, sizeof number);
-	close(fd);
-	if (result == -1)
-		return (-1);
-	return (number);
-}
-
-static char	*get_file_name(void)
-{
-	char			*num_by_string;
-	char			*file_name;
-	unsigned int	number;
-
-	while (1)
-	{
-		while (1)
-		{
-			number = get_random_number();
-			if (number < INT_MAX)
-				break ;
-		}
-		num_by_string = ft_itoa(number);
-		if (!num_by_string)
-			return (NULL);
-		file_name = ft_strjoin(".heredoc_", num_by_string);
-		free(num_by_string);
-		if (access(file_name, F_OK) == -1)
-			break ;
-		free(file_name);
-	}
-	return (file_name);
-}
-
-static void	read_from_stdin(const int fd, const char *delim, const int fd_history)
+static void	read_from_stdin(const int fd, const char *delim,
+	const int fd_history)
 {
 	char	*line;
 	size_t	len;
@@ -66,14 +25,14 @@ static void	read_from_stdin(const int fd, const char *delim, const int fd_histor
 		line = readline("> ");
 		if (!line)
 		{
-			printf("minishell: warning: here-document at line %d delimited by end-of-file (wanted `%s')\n",  count_lines, delim);
+			printf("minishell: warning: here-document at line %d "
+				"delimited by EOF (wanted `%s')\n", count_lines, delim);
 			return ;
 		}
 		++count_lines;
 		ft_putendl_fd(line, fd_history);
 		len = ft_strlen(line);
-		if (len == ft_strlen(delim)
-			&& ft_strncmp(line, delim, len) == 0)
+		if (len == ft_strlen(delim) && ft_strncmp(line, delim, len) == 0)
 		{
 			free(line);
 			return ;
@@ -83,47 +42,65 @@ static void	read_from_stdin(const int fd, const char *delim, const int fd_histor
 	}
 }
 
-char	*open_heredoc(const t_token *token, const int fd_history)
+static bool	is_invalid_token(const t_token *token)
 {
-	int		fd;
-	char	*name;
+	if (token->file_name)
+		return (true);
+	if (!token->next_token)
+	{
+		printf("%s `newline'\n", SYN_ERR);
+		return (true);
+	}
+	return (false);
+}
+
+static void	heredoc_child(int fd, const t_token *token, int fd_history)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
+	read_from_stdin(fd, token->next_token->token_data, fd_history);
+	close(fd);
+	exit(0);
+}
+
+static int	fork_and_wait_heredoc(int fd, const t_token *token, int fd_history)
+{
 	pid_t	pid;
 	int		status;
 
-	status = 0;
-	if (token->file_name)
-		return (token->file_name);
-	if (!token->next_token)
-		return (printf("%s `newline'\n", SYN_ERR), NULL);
+	signal(SIGINT, SIG_IGN);
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork failed");
+		return (-1);
+	}
+	if (pid == 0)
+		heredoc_child(fd, token, fd_history);
+	if (waitpid(pid, &status, 0) == -1 || WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+			write(STDOUT_FILENO, "\n", 1);
+		g_received_signal = WTERMSIG(status);
+		return (-1);
+	}
+	return (0);
+}
+
+char	*open_heredoc(const t_token *token, const int fd_history)
+{
+	char	*name;
+	int		fd;
+
+	if (is_invalid_token(token))
+		return (NULL);
 	name = get_file_name();
 	if (!name)
 		return (NULL);
 	fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
 		return (free(name), NULL);
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("fork failed");
-		return (NULL);
-	}
-	signal(SIGINT, SIG_IGN);
-	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_IGN);
-		read_from_stdin(fd, token->next_token->token_data, fd_history);
-		close(fd);
-		exit(0);
-	}
-	if (waitpid(pid, &status, 0) == -1)
-		return (perror("waiting failed"), free(name), NULL);
-	if (WIFSIGNALED(status))
-	{
-		if (status == SIGINT)
-			write(STDOUT_FILENO, "\n", 1);
-		g_received_signal = WTERMSIG(status);
+	if (fork_and_wait_heredoc(fd, token, fd_history) == -1)
 		return (free(name), NULL);
-	}
 	return (name);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   absent_operand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 00:51:12 by mansargs          #+#    #+#             */
-/*   Updated: 2025/07/20 01:59:51 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:50:27 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	read_and_join_line(char **line, char **extra_line)
 		if (only_spaces(*extra_line))
 		{
 			free(*extra_line);
-			continue;
+			continue ;
 		}
 		if (!*line)
 			*line = ft_strdup(*extra_line);
@@ -81,4 +81,3 @@ bool	wait_for_input(t_shell *shell, char **line)
 	}
 	return (true);
 }
-

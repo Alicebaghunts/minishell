@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_quoted.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 01:28:36 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/19 16:00:54 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:40:50 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ t_shell	*init_shell(char **envp)
 	shell->exit_code = 0;
 	shell->envp = envp;
 	shell->tokens = NULL;
-	shell->history.fd = open(".mini_history", O_CREAT | O_RDWR| O_APPEND, 0644);
+	shell->history.fd = open(".mini_history", O_CREAT
+			| O_RDWR | O_APPEND, 0644);
 	if (shell->history.fd < 0)
 		return (free(shell), NULL);
 	shell->history.is_there_heredoc = false;

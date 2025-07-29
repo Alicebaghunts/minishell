@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 21:32:20 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/20 02:50:28 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:40:45 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,52 +47,6 @@ char	**token_list_to_array(t_token *token)
 	}
 	arr[i] = NULL;
 	return (arr);
-}
-
-void	handle_builtin_commands(t_shell *shell, t_env *env)
-{
-	t_token	*cmd;
-	char	**args;
-
-	cmd = shell->tokens;
-	if (!cmd)
-		return ;
-	if (ft_strncmp(cmd->token_data, "export", ft_strlen("export")) == 0)
-	{
-		args = token_list_to_array(cmd);
-		export_builtin(args, env);
-		free_array(args);
-	}
-	if (ft_strncmp(cmd->token_data, "unset", ft_strlen("unset")) == 0)
-	{
-		args = token_list_to_array(cmd);
-		unset_builtin(args, env);
-		free_array(args);
-	}
-	if (ft_strncmp(cmd->token_data, "env", ft_strlen("env")) == 0)
-	{
-		args = token_list_to_array(cmd);
-		env_builtin(args, env);
-		free_array(args);
-	}
-	if (ft_strncmp(cmd->token_data, "pwd", ft_strlen("pwd")) == 0)
-	{
-		args = token_list_to_array(cmd);
-		pwd_builtin(shell);
-		free_array(args);
-	}
-	if (ft_strncmp(cmd->token_data, "cd", ft_strlen("cd")) == 0)
-	{
-		args = token_list_to_array(cmd);
-		cd_builtin(args, env);
-		free_array(args);
-	}
-	if (ft_strncmp(cmd->token_data, "echo", ft_strlen("echo")) == 0)
-	{
-		args = token_list_to_array(cmd);
-		echo_builtin(args, env);
-		free_array(args);
-	}
 }
 
 bool	execute_builtin(char **argv, t_env *env)

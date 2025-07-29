@@ -6,7 +6,7 @@
 /*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 23:21:59 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/19 09:19:26 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:40:12 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,17 @@ void	free_array(char **arr)
 	while (arr[i])
 		free(arr[i++]);
 	free(arr);
+}
+
+bool	only_spaces(const char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (!is_space(str[i]))
+			return (false);
+	}
+	return (true);
 }

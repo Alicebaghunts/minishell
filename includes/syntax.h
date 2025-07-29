@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 16:24:51 by mansargs          #+#    #+#             */
-/*   Updated: 2025/07/27 02:12:57 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:02:10 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SYNTAX_H
 
 # include "token.h"
+
 # include <sys/wait.h>
 
 # define STRICT 1
@@ -40,5 +41,7 @@ char	*open_quotes_heredoc(const char *str, int *open_flag);
 char	*open_quotes(char **envp, const char *str, int *open_flag);
 void	append_char(char **res, char c);
 int		check_is_open_quote(int quote, char *res);
+char	*get_file_name(void);
+int		get_random_number(void);
 
 #endif

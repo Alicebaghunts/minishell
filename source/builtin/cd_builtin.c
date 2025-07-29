@@ -6,7 +6,7 @@
 /*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:27:17 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/22 10:24:15 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:34:47 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,32 @@ int	check_too_many_dirs(char **args, t_env *env)
 	return (1);
 }
 
+char	*cd_validation(char **args, t_env *env)
+{
+	char	*path;
+
+	if (!check_too_many_dirs(args, env))
+		return (NULL);
+	if (!args[1])
+	{
+		path = handle_cd_without_dir(args, env);
+		if (!path)
+			return (NULL);
+	}
+	else
+		path = args[1];
+	return (path);
+}
+
 void	cd_builtin(char **args, t_env *env)
 {
 	char	*old_pwd;
 	char	new_pwd[PATH_MAX];
 	char	*path;
 
-	if (!check_too_many_dirs(args, env))
+	path = cd_validation(args, env);
+	if (path == NULL)
 		return ;
-	if (!args[1])
-	{
-		path = handle_cd_without_dir(args, env);
-		if (!path)
-			return ;
-	}
-	else
-		path = args[1];
 	old_pwd = env_get(env, "PWD")->value;
 	if (chdir(path) != 0)
 	{

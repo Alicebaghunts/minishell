@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:11:21 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/27 01:26:56 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:40:02 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ typedef struct s_token
 	struct s_token		*prev_token;
 }	t_token;
 
-typedef struct	s_history
+typedef struct s_history
 {
 	int		fd;
 	bool	is_there_heredoc;
 }				t_history;
 
-typedef struct	s_shell
+typedef struct s_shell
 {
 	char		*pwd;
 	int			exit_code;

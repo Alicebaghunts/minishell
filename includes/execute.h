@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 19:50:18 by mansargs          #+#    #+#             */
-/*   Updated: 2025/07/27 02:12:48 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:04:51 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,15 @@ bool	add_cmd_to_path(char **paths, const char *cmd);
 bool	fill_arguments(t_token *cmd, char **argv, int argc);
 void	free_ast(t_ast *tree);
 bool	open_wildcards(char	***argv);
-
-void	setup_signals();
+void	setup_signals(void);
+void	print_exec_error(const char *cmd, int exit_code);
+int		prepare_command(t_ast *node, t_env *env, char ***argv);
+int		execute_pipe(t_ast *node, t_env *env);
+int		execute_subshell(t_ast *node, t_env *env, bool has_forked);
+bool	open_redirects(t_ast *node);
+bool	copy_old_args(char **new_list, char **old_list);
+int		count_lines(char	**lines);
+bool	is_match(const char *item_name, const char *pattern);
+bool	find_directory_and_word(const char *line, char **dir, char **word);
 
 #endif

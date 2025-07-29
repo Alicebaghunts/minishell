@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 14:22:46 by mansargs          #+#    #+#             */
-/*   Updated: 2025/07/20 02:49:39 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:39:33 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ void			pwd_builtin(t_shell *shell);
 void			cd_builtin(char **args, t_env *env);
 void			echo_builtin(char **args, t_env *env);
 void			exit_builtin(t_shell *shell, char **args);
-void			history_builtin();
-
+void			history_builtin(void);
 int				count_env_vars(t_env *env);
 
 #endif

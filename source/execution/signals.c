@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mansargs <mansargs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 15:08:55 by mansargs          #+#    #+#             */
-/*   Updated: 2025/07/27 01:24:48 by mansargs         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:50:53 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-void signal_handler(int signum)
+void	signal_handler(int signum)
 {
 	g_received_signal = signum;
 	write(STDOUT_FILENO, "\n", 1);
@@ -21,7 +21,7 @@ void signal_handler(int signum)
 	rl_redisplay();
 }
 
-void setup_signals()
+void	setup_signals(void)
 {
 	struct sigaction	sa;
 
@@ -31,4 +31,3 @@ void setup_signals()
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }
-
