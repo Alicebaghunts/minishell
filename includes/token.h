@@ -6,7 +6,7 @@
 /*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:11:21 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/29 12:40:02 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:18:11 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ typedef struct s_shell
 	t_token		*tokens;
 }	t_shell;
 
-bool			only_spaces(const char *str);
 t_shell			*init_shell(char **envp);
 t_token			*tokenize(char *line);
 t_token			*create_token(const char *t_data, t_token_type t_type);
@@ -101,11 +100,12 @@ bool			is_special_char(char tok);
 bool			is_special_operator(char tok);
 bool			wait_for_input_if_need(char **line);
 void			free_tokens(t_token *head);
+bool			only_spaces(const char *str);
+void			free_token(t_token **token);
 int				extract_quoted_string(char *line, int i, char *str);
 int				handle_quots_token(char *line, int i, t_token **head);
 int				skip_variable(const char *line, int i);
 int				get_word_len_with_quotes(const char *line);
-void			free_token(t_token **token);
 int				count_tokens(t_token *token);
 
 #endif

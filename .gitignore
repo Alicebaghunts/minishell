@@ -5,3 +5,9 @@ minishell
 *.mini*
 *.vs*
 DS*
+libft.a
+sourse
+src
+obj
+object
+.mini_history
