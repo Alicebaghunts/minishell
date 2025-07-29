@@ -1,0 +1,7 @@
+*.o
+here*
+_here*
+minishell
+*.mini*
+*.vs*
+DS*
