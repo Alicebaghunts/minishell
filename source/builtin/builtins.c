@@ -54,7 +54,7 @@ bool	execute_builtin(char **argv, t_env *env)
 	if (!ft_strcmp("cd", argv[0]))
 		return (cd_builtin(argv, env), true);
 	if (!ft_strcmp("pwd", argv[0]))
-		return (pwd_builtin(NULL), true);
+		return (pwd_builtin(argv, env), true);
 	if (!ft_strcmp("unset", argv[0]))
 		return (unset_builtin(argv, env), true);
 	if (!ft_strcmp("export", argv[0]))

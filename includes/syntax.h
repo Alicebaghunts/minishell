@@ -14,7 +14,6 @@
 # define SYNTAX_H
 
 # include "token.h"
-
 # include <sys/wait.h>
 
 # define STRICT 1

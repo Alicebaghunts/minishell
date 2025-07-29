@@ -12,16 +12,22 @@
 
 #include "parser.h"
 
-void	pwd_builtin(t_shell *shell)
+void	pwd_builtin(char **args, t_env *env)
 {
-	char	*pwd;
+	// char	*cwd;
 
-	pwd = getcwd(NULL, 0);
-	if (pwd)
-	{
-		printf("%s\n", pwd);
-		free(pwd);
-	}
-	else
-		printf("%s\n", shell->pwd);
+	(void)args;
+	// if (!env->shell->pwd)
+	// {
+	// 	cwd = getcwd(NULL, 0);
+	// 	if (!cwd)
+	// 	{
+	// 		perror("minishell: pwd");
+	// 		env->shell->exit_code = 1;
+	// 		return ;
+	// 	}
+	// 	env->shell->pwd = cwd;
+	// }
+	printf("%s\n", env->shell->pwd);
+	env->shell->exit_code = 0;
 }

@@ -24,6 +24,7 @@
 # include "../library/libft/libft.h"
 # include "../library/gnl/get_next_line.h"
 
+
 # define SYN_ERR "minishell: syntax error near unexpected token"
 
 extern volatile sig_atomic_t	g_received_signal;

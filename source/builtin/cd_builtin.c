@@ -66,9 +66,10 @@ char	*cd_validation(char **args, t_env *env)
 
 void	cd_builtin(char **args, t_env *env)
 {
-	char	*old_pwd;
-	char	new_pwd[PATH_MAX];
-	char	*path;
+	char		*old_pwd;
+	char		new_pwd[PATH_MAX];
+	char		*path;
+	t_env_node *pwd_node;
 
 	path = cd_validation(args, env);
 	if (path == NULL)
@@ -84,10 +85,16 @@ void	cd_builtin(char **args, t_env *env)
 	{
 		printf("cd: error retrieving current directory: getcwd: ");
 		printf("cannot access parent directories: No such file or directory\n");
-		env->shell->pwd = ft_strjoin(env_get(env, "PWD")->value, "/..");
+		pwd_node = env_get(env, "PWD");
+		if (!pwd_node || !pwd_node->value)
+			env->shell->pwd = ft_strdup("");
+		else
+			env->shell->pwd = ft_strjoin(pwd_node->value, "/..");
 		env_set(env, "PWD", env->shell->pwd, 1);
 		return ;
 	}
 	env_set(env, "OLDPWD", old_pwd, 1);
 	env_set(env, "PWD", new_pwd, 1);
+	free(env->shell->pwd);
+	env->shell->pwd = ft_strdup(new_pwd);
 }

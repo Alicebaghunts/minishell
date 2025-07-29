@@ -95,6 +95,11 @@ t_shell	*init_shell(char **envp)
 	shell->exit_code = 0;
 	shell->envp = envp;
 	shell->tokens = NULL;
+	shell->pwd = getcwd(NULL, 0);
+	if (!shell->pwd)
+	{
+		shell->pwd = ft_strdup(".");
+	}
 	shell->history.fd = open(".mini_history", O_CREAT
 			| O_RDWR | O_APPEND, 0644);
 	if (shell->history.fd < 0)

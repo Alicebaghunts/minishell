@@ -77,7 +77,7 @@ int				export_builtin(char **args, t_env *env);
 void			handle_builtin_commands(t_shell *shell, t_env *env);
 void			unset_builtin(char **arg, t_env *env);
 void			env_builtin(char **args, t_env *env);
-void			pwd_builtin(t_shell *shell);
+void			pwd_builtin(char **args, t_env *env);
 void			cd_builtin(char **args, t_env *env);
 void			echo_builtin(char **args, t_env *env);
 void			exit_builtin(t_shell *shell, char **args);
