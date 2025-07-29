@@ -9,14 +9,14 @@ SRC_DIR = source
 OBJ_DIR = objects
 LIB_DIR = library
 
-LIBFT_DIR = $(LIB_DIR)/libft
-GNL_DIR   = $(LIB_DIR)/gnl
-LEXICAL   = $(SRC_DIR)/lexical_analysis
-SYNTAX    = $(SRC_DIR)/syntax_analysis
-PARSER    = $(SRC_DIR)/parser
-BUILTIN   = $(SRC_DIR)/builtin
-ENV       = $(SRC_DIR)/environment
-EXECUTION       = $(SRC_DIR)/execution
+LIBFT_DIR	= $(LIB_DIR)/libft
+GNL_DIR		= $(LIB_DIR)/gnl
+LEXICAL		= $(SRC_DIR)/lexical_analysis
+SYNTAX		= $(SRC_DIR)/syntax_analysis
+PARSER		= $(SRC_DIR)/parser
+BUILTIN		= $(SRC_DIR)/builtin
+ENV			= $(SRC_DIR)/environment
+EXECUTION	= $(SRC_DIR)/execution
 
 INCLUDES = -Iincludes -I$(LIBFT_DIR) -I$(GNL_DIR)
 

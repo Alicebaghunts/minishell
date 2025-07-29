@@ -6,7 +6,7 @@
 /*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:11:23 by alisharu          #+#    #+#             */
-/*   Updated: 2025/07/06 22:15:05 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:18:46 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ t_token	*create_token(const char *t_data, t_token_type type)
 	if (!token)
 		return (NULL);
 	token->token_data = ft_strdup(t_data);
+	if (!token->token_data)
+		return (free(token), NULL);
 	token->token_type = type;
 	if (type == TOKEN_OPERATOR)
 		token->token_operator_type
